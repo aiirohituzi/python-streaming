@@ -1,6 +1,6 @@
 import requests
 import pyglet
-
+import os
 
 def download_file(file_):
     data = {'file_': file_}
@@ -20,6 +20,7 @@ def download_file(file_):
 
 def some_function():
     pyglet.app.exit()
+    os.remove('./tmp.mp3')
 
 src = pyglet.media.StaticSource(pyglet.media.load(download_file('Intro.mp3')))
 player = pyglet.media.Player()
