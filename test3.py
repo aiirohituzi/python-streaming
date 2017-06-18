@@ -2,6 +2,14 @@ import requests
 import pyglet
 import os
 
+window = pyglet.window.Window()
+
+@window.event
+def on_key_press(symbol, modifiers):
+    print 'A key was pressed'
+    pyglet.app.exit()
+    os.remove('./tmp.mp3')
+
 def download_file(file_):
     data = {'file_': file_}
     r = requests.get("http://localhost:8080/index",
@@ -32,4 +40,3 @@ pyglet.app.run()
 print(player.playing)
 # pyglet.app.exit()
 print("333333333333")
-    
