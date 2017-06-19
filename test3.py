@@ -1,14 +1,20 @@
 import requests
 import pyglet
 import os
+from pyglet.window import key
 
 window = pyglet.window.Window()
 
 @window.event
 def on_key_press(symbol, modifiers):
-    print 'A key was pressed'
-    pyglet.app.exit()
-    os.remove('./tmp.mp3')
+    print("A key was pressed")
+    if symbol == key.P:
+        player.pause()
+    elif symbol == key.O:
+        player.play()
+    elif symbol == key.Q:
+        pyglet.app.exit()
+        os.remove('./tmp.mp3')
 
 def download_file(file_):
     data = {'file_': file_}
@@ -37,6 +43,4 @@ player.push_handlers(on_eos=some_function)
 player.play()
 pyglet.app.run()
 
-print(player.playing)
-# pyglet.app.exit()
-print("333333333333")
+# print(player.playing)
