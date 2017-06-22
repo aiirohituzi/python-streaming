@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from streaming.views import getAudio
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^getAudio/$', getAudio, name='getAudio'),
 ]
