@@ -1,8 +1,16 @@
 from django.shortcuts import render
 import os
 from django.http import HttpResponse
+from rest_framework import viewsets
+from streaming.serializers import AudiosSerializer
 
-# Create your views here.
+from streaming.models import Audios
+
+
+class AudiosViewSet(viewsets.ModelViewSet):  
+    queryset = Audios.objects.all().order_by('-id')
+    serializer_class = AudiosSerializer
+
 def getAudio(request):
     fname = os.path.abspath(os.path.join('../music', "Intro.mp3"))
     f = open(fname, 'rb')
