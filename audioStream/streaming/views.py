@@ -3,6 +3,7 @@ import os
 from django.http import HttpResponse
 from rest_framework import viewsets
 from streaming.serializers import AudiosSerializer
+from streaming.forms import AudiosForm
 
 from streaming.models import Audios
 
@@ -21,3 +22,16 @@ def getAudio(request):
     response['Content-Length'] = os.path.getsize(fname)
 
     return response
+
+@csrf_exempt
+def upload(request):
+    result = False
+
+    AudiosForm = AudiosForm(request.POST)
+
+    if AudiosForm.is_valid():
+        obj = AudiosForm.save(commit=False)
+        obj.save()      # obj.save(commit=True) 와 동일
+        result = True
+
+    return HttpResponse(result)
