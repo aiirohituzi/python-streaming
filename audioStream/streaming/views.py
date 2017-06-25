@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from rest_framework import viewsets
 from streaming.serializers import AudiosSerializer
 from streaming.forms import AudiosForm
+from django.views.decorators.csrf import csrf_exempt
 
 from streaming.models import Audios
 
@@ -27,11 +28,15 @@ def getAudio(request):
 def upload(request):
     result = False
 
-    AudiosForm = AudiosForm(request.POST)
+    print(request.FILES)
+    audiosForm = AudiosForm(request.FILES)
+    print(audiosForm)
 
-    if AudiosForm.is_valid():
-        obj = AudiosForm.save(commit=False)
-        obj.save()      # obj.save(commit=True) 와 동일
+    if audiosForm.is_valid():
+        obj = audiosForm.save(commit=False)
+        obj.save()
         result = True
 
+
+    print(result)
     return HttpResponse(result)
