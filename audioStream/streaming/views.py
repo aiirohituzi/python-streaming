@@ -29,7 +29,7 @@ def upload(request):
     result = False
 
     print(request.FILES)
-    audiosForm = AudiosForm(request.FILES)
+    audiosForm = AudiosForm(request.POST, request.FILES)
     print(audiosForm)
 
     if audiosForm.is_valid():
@@ -39,4 +39,28 @@ def upload(request):
 
 
     print(result)
+    return HttpResponse(result)
+
+
+
+@csrf_exempt
+def delete(request):
+    result = False
+    log = ''
+    musicId = request.POST['id']
+
+    try:
+        row = Audios.objects.get(id=musicId)
+    except Audios.DoesNotExist:
+        print("Delete Request : [Failed]No Audios matches the given query.")
+        return HttpResponse(result)
+    
+    if row != None:
+        log += 'Delete Request : ' + str(row.id) + ' music delete success'
+        print(log)
+        row.delete()
+        result = True
+    else:
+        print("Delete Request : Delete error")
+
     return HttpResponse(result)
