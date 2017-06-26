@@ -14,7 +14,12 @@ class AudiosViewSet(viewsets.ModelViewSet):
     serializer_class = AudiosSerializer
 
 def getAudio(request):
-    fname = os.path.abspath(os.path.join('../music', "Intro.mp3"))
+    row = Audios.objects.get(id=request.GET['id'])
+    split_path = str(row.music).split('/')
+    filename = split_path[len(split_path)-1]
+
+
+    fname = os.path.abspath(os.path.join('../music', filename))
     f = open(fname, 'rb')
 
     response = HttpResponse()
