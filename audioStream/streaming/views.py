@@ -15,15 +15,22 @@ class AudiosViewSet(viewsets.ModelViewSet):
 
 def getAudio(request):
     row = Audios.objects.get(id=request.GET['id'])
+    # row = list(Audios.objects.values_list('id', flat=True))
+    # taget_id = row[row.index(row) + 1]
+    # obj = row.objects.get(id__exact= target_id)
+    # print(obj)
     split_path = str(row.music).split('/')
     filename = split_path[len(split_path)-1]
 
 
     fname = os.path.abspath(os.path.join('../music', filename))
     f = open(fname, 'rb')
-
     response = HttpResponse()
     response.write(f.read())
+    f.close()
+    f = open(fname, 'rb')
+    response.write(f.read())
+    f.close()
     response['Content-Type'] = 'audio/mp3'
     response['Content-Length'] = os.path.getsize(fname)
 
