@@ -14,25 +14,39 @@ class AudiosViewSet(viewsets.ModelViewSet):
     serializer_class = AudiosSerializer
 
 def getAudio(request):
-    # row = Audios.objects.get(id=request.GET['id'])
+
     response = HttpResponse()
     responseSize = 0
-    for rows in Audios.objects.all():
-        print(rows.music)
-        split_path = str(rows.music).split('/')
+
+    id = request.GET.get('id', False)
+
+    if(id):
+        print(id)
+        row = Audios.objects.get(id=request.GET['id'])
+        
+        split_path = str(row.music).split('/')
         filename = split_path[len(split_path)-1]
-
         fname = os.path.abspath(os.path.join('./music', filename))
-        responseSize += os.path.getsize(fname)
-        print(responseSize)
-
         f = open(fname, 'rb')
         response.write(f.read())
         f.close()
+        responseSize += os.path.getsize(fname)
 
-    # f = open(fname, 'rb')
-    # response.write(f.read())
-    # f.close()
+    else:
+        print(id)
+        for rows in Audios.objects.all():
+            print(rows.music)
+            split_path = str(rows.music).split('/')
+            filename = split_path[len(split_path)-1]
+
+            fname = os.path.abspath(os.path.join('./music', filename))
+            responseSize += os.path.getsize(fname)
+            print(responseSize)
+
+            f = open(fname, 'rb')
+            response.write(f.read())
+            f.close()
+
     response['Content-Type'] = 'audio/mp3'
     response['Content-Length'] = responseSize
 
