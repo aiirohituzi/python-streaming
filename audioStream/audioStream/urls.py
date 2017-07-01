@@ -18,6 +18,7 @@ from django.contrib import admin
 from streaming.views import getAudio
 from streaming.views import upload
 from streaming.views import delete
+from streaming.views import musicList
 
 from streaming import views
 from rest_framework import routers
@@ -32,4 +33,5 @@ urlpatterns = [
     url(r'^getAudio/$', getAudio, name='getAudio'),
     url(r'^upload/$', upload, name='upload'),
     url(r'^delete/$', delete, name='delete'),
+    url(r'^list/$', musicList, name='music_list'),
 ]

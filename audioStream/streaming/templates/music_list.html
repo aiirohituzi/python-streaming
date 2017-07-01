@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for music in musics %}
+        <div>
+            {{ music.id }} / 
+            {{ music.music }}
+        </div>
+    {% endfor %}
+{% endblock content %}

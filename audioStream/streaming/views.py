@@ -92,3 +92,7 @@ def delete(request):
         print("Delete Request : Delete error")
 
     return HttpResponse(result)
+
+def musicList(request):
+    musics = Audios.objects.all().order_by('id')
+    return render(request, 'music_list.html', {'musics': musics})
