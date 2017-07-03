@@ -52,6 +52,22 @@ def getAudio(request):
 
     return response
 
+def selectGetAudio(request):
+
+    response = HttpResponse()
+    responseSize = 0
+
+
+
+    ## this
+
+
+
+    response['Content-Type'] = 'audio/mp3'
+    response['Content-Length'] = responseSize
+
+    return response
+
 @csrf_exempt
 def upload(request):
     result = False
