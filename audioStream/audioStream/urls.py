@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from streaming.views import getAudio
+from streaming.views import selectGetAudio
 from streaming.views import upload
 from streaming.views import delete
 from streaming.views import musicList
@@ -31,6 +32,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(router.urls)),
     url(r'^getAudio/$', getAudio, name='getAudio'),
+    url(r'^selectGetAudio/$', selectGetAudio, name='selectGetAudio'),
     url(r'^upload/$', upload, name='upload'),
     url(r'^delete/$', delete, name='delete'),
     url(r'^list/$', musicList, name='music_list'),

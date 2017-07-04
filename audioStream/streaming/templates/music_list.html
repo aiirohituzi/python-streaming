@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
     <script>
         var checkList = []
         function play(){
-            console.log(checkList)
+            document.checkForm.submit();
         }
 
         function check(id){
@@ -22,6 +27,7 @@
             }
         }
     </script>
+    <form name="checkForm" action="/selectGetAudio/" method="post">
     <input type="button" class="btn btn-primary" value="선택 재생" onclick="play()"><p>
     {% for music in musics %}
         <div>
@@ -32,4 +38,5 @@
             </a>
         </div>
     {% endfor %}
+    </form>
 {% endblock content %}
