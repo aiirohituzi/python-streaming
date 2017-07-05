@@ -52,31 +52,30 @@ def getAudio(request):
 
     return response
 
-@csrf_exempt
+
+
 def selectGetAudio(request):
 
     response = HttpResponse()
-    # responseSize = 0
-    print(request.body)
+    responseSize = 0
 
-    # request.POST.get('id', false)
+    id_str = request.GET.get('id', False)
 
-
-    # row = Audios.objects.get(id=request.GET['id'])
+    id_list = id_str.split(',')
     
-    # split_path = str(row.music).split('/')
-    # filename = split_path[len(split_path)-1]
-    # fname = os.path.abspath(os.path.join('./music', filename))
-    # f = open(fname, 'rb')
-    # response.write(f.read())
-    # f.close()
-    # responseSize += os.path.getsize(fname)
+    for id in id_list:
+        row = Audios.objects.get(id=id)
+        
+        split_path = str(row.music).split('/')
+        filename = split_path[len(split_path)-1]
+        fname = os.path.abspath(os.path.join('./music', filename))
+        f = open(fname, 'rb')
+        response.write(f.read())
+        f.close()
+        responseSize += os.path.getsize(fname)
 
-
-
-
-    # response['Content-Type'] = 'audio/mp3'
-    # response['Content-Length'] = responseSize
+    response['Content-Type'] = 'audio/mp3'
+    response['Content-Length'] = responseSize
 
     return response
 

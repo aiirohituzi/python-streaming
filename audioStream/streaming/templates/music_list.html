@@ -8,14 +8,29 @@
     <script>
         var checkList = []
         function play(){
-            document.checkForm.submit();
+            console.log(checkList)
+            // console.log(checkList.length)
+            var data = ''
+
+            if(checkList.length == 0){
+                alert("곡을 선택해 주세요.")
+                return 0
+            }
+            for(var i=0; i<checkList.length; i++){
+                // console.log(checkList[i])
+                if(i != 0){
+                    data += ','
+                }
+                data += checkList[i]
+            }
+            console.log(data)
+            location.href = "/selectGetAudio/?id=" + data
         }
 
         function check(id){
             isCheck = document.getElementById(id).checked
             if(isCheck){
                 checkList.push(id)
-                console.log(checkList)
             } else {
                 for(var i=0; i<checkList.length; i++){
                     if(checkList[i] == id){
@@ -23,11 +38,11 @@
                         break
                     }
                 }
-                console.log(checkList)
             }
+            checkList.sort();
+            console.log(checkList)
         }
     </script>
-    <form name="checkForm" action="/selectGetAudio/" method="post">
     <input type="button" class="btn btn-primary" value="선택 재생" onclick="play()"><p>
     {% for music in musics %}
         <div>
@@ -38,5 +53,4 @@
             </a>
         </div>
     {% endfor %}
-    </form>
 {% endblock content %}
