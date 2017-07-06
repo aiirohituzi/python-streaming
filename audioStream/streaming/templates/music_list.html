@@ -42,15 +42,24 @@
             checkList.sort();
             console.log(checkList)
         }
+
+        function remove(id){
+            // console.log(id)
+            location.href = "/delete/?id=" + id
+        }
     </script>
     <input type="button" class="btn btn-primary" value="선택 재생" onclick="play()"><p>
+    
+    <div class="list-group">
     {% for music in musics %}
-        <div>
+        <li class="list-group-item">
             <input id={{music.id}} type="checkbox" onclick="check({{music.id}})">
             <a href="{% url 'getAudio'%}?id={{music.id}}">
-            {{ music.id }} / 
-            {{ music.music }}
+                {{ music.id }} / 
+                {{ music.music }}
             </a>
-        </div>
+            <input type="button" class="btn btn-danger pull-right btn-xs" value="삭제" onclick="remove({{music.id}})">
+        </li>
     {% endfor %}
+    </div>
 {% endblock content %}

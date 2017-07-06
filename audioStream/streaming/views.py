@@ -102,7 +102,10 @@ def upload(request):
 def delete(request):
     result = False
     log = ''
-    musicId = request.POST['id']
+    if(request.method == 'POST'):
+        musicId = request.POST['id']
+    elif(request.method == 'GET'):
+        musicId = request.GET['id']
 
     try:
         row = Audios.objects.get(id=musicId)
