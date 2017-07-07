@@ -20,6 +20,7 @@ from streaming.views import selectGetAudio
 from streaming.views import upload
 from streaming.views import delete
 from streaming.views import musicList
+from streaming.views import musicUpload
 
 from streaming import views
 from rest_framework import routers
@@ -36,4 +37,5 @@ urlpatterns = [
     url(r'^upload/$', upload, name='upload'),
     url(r'^delete/$', delete, name='delete'),
     url(r'^list/$', musicList, name='music_list'),
+    url(r'^musicUpload/$', musicUpload, name='musicUpload'),
 ]

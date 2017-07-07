@@ -47,8 +47,12 @@
             // console.log(id)
             location.href = "/delete/?id=" + id
         }
+        function upload(){
+            location.href = "/musicUpload/"
+        }
     </script>
-    <input type="button" class="btn btn-primary" value="선택 재생" onclick="play()"><p>
+    <input type="button" class="btn btn-primary" value="선택 재생" onclick="play()">
+    <input type="button" class="btn btn-primary" value="업로드" onclick="upload()"><p>
     
     <div class="list-group">
     {% for music in musics %}

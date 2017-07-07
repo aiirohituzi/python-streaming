@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 import os
 from django.http import HttpResponse
 from rest_framework import viewsets
@@ -121,8 +122,26 @@ def delete(request):
     else:
         print("Delete Request : Delete error")
 
-    return HttpResponse(result)
+    return redirect('music_list')
+    # return HttpResponse(result)
+
+
 
 def musicList(request):
     musics = Audios.objects.all().order_by('id')
     return render(request, 'music_list.html', {'musics': musics})
+
+
+
+def musicUpload(request):
+    if request.method == "POST":
+        form = AudiosForm(request.POST, request.FILES)
+        print(form.is_valid())
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.save()
+            print("success")
+            return redirect('music_list')
+    else:
+        form = AudiosForm()
+    return render(request, 'music_upload.html', {'form': form})
