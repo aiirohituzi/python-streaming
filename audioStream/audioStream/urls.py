@@ -21,6 +21,7 @@ from streaming.views import upload
 from streaming.views import delete
 from streaming.views import musicList
 from streaming.views import musicUpload
+from streaming.views import randomPlay
 
 from streaming import views
 from rest_framework import routers
@@ -38,4 +39,5 @@ urlpatterns = [
     url(r'^delete/$', delete, name='delete'),
     url(r'^list/$', musicList, name='music_list'),
     url(r'^musicUpload/$', musicUpload, name='musicUpload'),
+    url(r'^randomPlay/$', randomPlay, name='randomPlay'),
 ]

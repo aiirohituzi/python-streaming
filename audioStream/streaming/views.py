@@ -34,7 +34,6 @@ def getAudio(request):
         responseSize += os.path.getsize(fname)
 
     else:
-        print(id)
         for rows in Audios.objects.all():
             print(rows.music)
             split_path = str(rows.music).split('/')
@@ -145,3 +144,29 @@ def musicUpload(request):
     else:
         form = AudiosForm()
     return render(request, 'music_upload.html', {'form': form})
+
+
+
+def randomPlay(request):
+
+    response = HttpResponse()
+    responseSize = 0
+
+    for rows in Audios.objects.all().order_by('?'):
+        print(rows.id)
+        print(rows.music)
+        split_path = str(rows.music).split('/')
+        filename = split_path[len(split_path)-1]
+
+        fname = os.path.abspath(os.path.join('./music', filename))
+        responseSize += os.path.getsize(fname)
+        # print(responseSize)
+
+        f = open(fname, 'rb')
+        response.write(f.read())
+        f.close()
+
+    response['Content-Type'] = 'audio/mp3'
+    response['Content-Length'] = responseSize
+
+    return response
