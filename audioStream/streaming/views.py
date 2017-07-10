@@ -138,18 +138,19 @@ def musicList(request):
 def musicUpload(request):
     if request.method == "POST":
         form = AudiosForm(request.POST, request.FILES)
-        print(form.is_valid())
-        print(request.FILES['music'])
+        # print(form.is_valid())
+        # print(request.FILES['music'])
 
         split_fname = str(request.FILES['music']).split('.')
         extension = split_fname[len(split_fname)-1]
+        # print(extension)
 
         # if(extension == 'mp3'):
         #     print("asdfasdfasdf")
 
         if form.is_valid() and extension == 'mp3':
             obj = form.save(commit=False)
-            # obj.save()
+            obj.save()
             print("success")
             return redirect('music_list')
     else:
