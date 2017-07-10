@@ -64,6 +64,7 @@ def selectGetAudio(request):
     id_list = id_str.split(',')
     
     for id in id_list:
+        # print(id)
         row = Audios.objects.get(id=id)
         
         split_path = str(row.music).split('/')
@@ -73,6 +74,8 @@ def selectGetAudio(request):
         response.write(f.read())
         f.close()
         responseSize += os.path.getsize(fname)
+        # print(fname)
+        # print(responseSize)
 
     response['Content-Type'] = 'audio/mp3'
     response['Content-Length'] = responseSize
@@ -136,9 +139,17 @@ def musicUpload(request):
     if request.method == "POST":
         form = AudiosForm(request.POST, request.FILES)
         print(form.is_valid())
-        if form.is_valid():
+        print(request.FILES['music'])
+
+        split_fname = str(request.FILES['music']).split('.')
+        extension = split_fname[len(split_fname)-1]
+
+        # if(extension == 'mp3'):
+        #     print("asdfasdfasdf")
+
+        if form.is_valid() and extension == 'mp3':
             obj = form.save(commit=False)
-            obj.save()
+            # obj.save()
             print("success")
             return redirect('music_list')
     else:
