@@ -103,7 +103,7 @@ def upload(request):
 
 @csrf_exempt
 def delete(request):
-    result = False
+    # result = False
     log = ''
     if(request.method == 'POST'):
         musicId = request.POST['id']
@@ -114,19 +114,34 @@ def delete(request):
         row = Audios.objects.get(id=musicId)
     except Audios.DoesNotExist:
         print("Delete Request : [Failed]No Audios matches the given query.")
-        return HttpResponse(result)
+        return redirect('music_list')
+        # return HttpResponse(result)
     
     if row != None:
         log += 'Delete Request : ' + str(row.id) + ' music delete success'
         print(log)
         row.delete()
-        result = True
+        # result = True
     else:
         print("Delete Request : Delete error")
 
     return redirect('music_list')
     # return HttpResponse(result)
 
+
+def selectDelete(request):
+
+    id_str = request.GET.get('id', False)
+
+    id_list = id_str.split(',')
+    
+    for id in id_list:
+        # print(id)
+        row = Audios.objects.get(id=id)
+        row.delete()
+        print('Delete Request : ' + id + ' music delete success')
+
+    return redirect('music_list')
 
 
 def musicList(request):

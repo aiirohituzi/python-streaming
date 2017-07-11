@@ -19,6 +19,7 @@ from streaming.views import getAudio
 from streaming.views import selectGetAudio
 from streaming.views import upload
 from streaming.views import delete
+from streaming.views import selectDelete
 from streaming.views import musicList
 from streaming.views import musicUpload
 from streaming.views import randomPlay
@@ -37,6 +38,7 @@ urlpatterns = [
     url(r'^selectGetAudio/$', selectGetAudio, name='selectGetAudio'),
     url(r'^upload/$', upload, name='upload'),
     url(r'^delete/$', delete, name='delete'),
+    url(r'^selectDelete/$', selectDelete, name='selectDelete'),
     url(r'^list/$', musicList, name='music_list'),
     url(r'^musicUpload/$', musicUpload, name='musicUpload'),
     url(r'^randomPlay/$', randomPlay, name='randomPlay'),
